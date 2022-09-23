@@ -9,10 +9,10 @@ namespace Lab2
     internal class Menu
     {
         public int SelectedIndex { get; set; }
-        public string[] Options { get; set; }
+        public List<string> Options { get; set; }
         public string Prompt { get; set; }
 
-        public Menu(string prompt, string[] options)
+        public Menu(string prompt, List<string> options)
         {
             Prompt = prompt;
             Options = options;
@@ -24,7 +24,7 @@ namespace Lab2
         private void DisplayOptions()
         {
             Console.WriteLine(Prompt);
-            for (int i = 0; i < Options.Length; i++)
+            for (int i = 0; i < Options.Count; i++)
             {
                 string CurrentOption = Options[i];
                 string prefix;
@@ -66,13 +66,13 @@ namespace Lab2
                     // instead of going off the screen
                     if (SelectedIndex == -1)
                     {
-                        SelectedIndex = Options.Length - 1;
+                        SelectedIndex = Options.Count - 1;
                     }
                 }
                 else if (keyPressed == ConsoleKey.DownArrow)
                 {
                     SelectedIndex++;
-                    if (SelectedIndex == Options.Length)
+                    if (SelectedIndex == Options.Count)
                     {
                         SelectedIndex = 0;
                     }

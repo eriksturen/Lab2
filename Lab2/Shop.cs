@@ -31,35 +31,45 @@ namespace Lab2
 
         private void RunMainMenu()
         {
-            string[] options = { "Mat", "Leksaker", "Koppel, halsband och selar", "Kassa", "Kundvagn", "Avsluta" };
-            Menu mainMenu = new Menu(prompt, options);
+            List<string> baseOptions = new List<string>() { "Mat", "Leksaker", "Koppel, halsband och selar", "Kassa", "Kundvagn", "Avsluta" };
+            Menu mainMenu = new Menu(prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
 
-
             // having to do a switch statement for each new menu is irritating - better way should be possible 
+
             switch (selectedIndex)
             {
                 case 0:
                     Mat();
                     break;
                 case 1:
+                    Leksaker();
                     break;
                 case 2:
+                    KoppelOchHalsband();
                     break;
                 case 3:
                     break;
                 case 4:
                     break;
                 case 5:
-                    Tillbaka();
+                    Exit();
                     break;
                 default:
                     break;
             }
         }
 
-        private void Tillbaka()
+        private void Back(int selectedIndex, List<string> options)
+        {
+            if (selectedIndex == options.Count - 1)
+            {
+                RunMainMenu();
+            }
+        }
+
+        private void Exit()
         {
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
@@ -68,13 +78,27 @@ namespace Lab2
 
         private void Mat()
         {
-            string[] options = { "Standardt extra", "Royal Canin", "Köttfärs på tunna", "Tillbaka" };
+            List<string> options = new List<string>(){ "Standardt extra", "Royal Canin", "Köttfärs på tunna", "Tillbaka" };
             Menu matMenu = new Menu(prompt, options);
             int selectedIndex = matMenu.Run();
-            if (selectedIndex == options.Length-1)
-            {
-                RunMainMenu();
-            }
+            Back(selectedIndex, options);
+            
+        }
+
+        private void Leksaker()
+        {
+            List<string> options = new List<string>() { "Kong", "Frisbee", "Herding ball", "Tillbaka" };
+            Menu matMenu = new Menu(prompt, options);
+            int selectedIndex = matMenu.Run();
+            Back(selectedIndex, options);
+        }
+        private void KoppelOchHalsband()
+        {
+            List<string> options = new List<string>() { "Läderhalsband", "Spårlina 10 meter", "Nome-sele",
+                "Spårsele 20 meter", "IGP-sele", "Helikopterlyftsele", "Tillbaka" };
+            Menu matMenu = new Menu(prompt, options);
+            int selectedIndex = matMenu.Run();
+            Back(selectedIndex, options);
         }
     }
 }
