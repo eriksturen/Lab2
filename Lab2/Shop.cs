@@ -9,7 +9,6 @@ namespace Lab2
 {
     class Shop
     {
-
         string prompt = @"
     ██╗  ██╗██╗   ██╗███╗   ██╗██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗       ██╗        ██████╗ ██████╗ 
     ██║  ██║██║   ██║████╗  ██║██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝       ██║       ██╔════╝██╔═══██╗
@@ -26,12 +25,12 @@ namespace Lab2
         {
             Console.Title = "Hundsport & Co";
             RunMainMenu();
-
         }
 
         private void RunMainMenu()
         {
-            List<string> baseOptions = new List<string>() { "Mat", "Leksaker", "Koppel, halsband och selar", "Kassa", "Kundvagn", "Avsluta" };
+            List<string> baseOptions = new List<string>()
+                { "Mat", "Leksaker", "Koppel, halsband och selar", "Kassa", "Kundvagn", "Avsluta" };
             Menu mainMenu = new Menu(prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
@@ -78,11 +77,11 @@ namespace Lab2
 
         private void Mat()
         {
-            List<string> options = new List<string>(){ "Standardt extra", "Royal Canin", "Köttfärs på tunna", "Tillbaka" };
+            List<string> options = new List<string>()
+                { "Standardt extra", "Royal Canin", "Köttfärs på tunna", "Tillbaka" };
             Menu matMenu = new Menu(prompt, options);
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, options);
-            
         }
 
         private void Leksaker()
@@ -92,10 +91,14 @@ namespace Lab2
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, options);
         }
+
         private void KoppelOchHalsband()
         {
-            List<string> options = new List<string>() { "Läderhalsband", "Spårlina 10 meter", "Nome-sele",
-                "Spårsele 20 meter", "IGP-sele", "Helikopterlyftsele", "Tillbaka" };
+            List<string> options = new List<string>()
+            {
+                "Läderhalsband", "Spårlina 10 meter", "Nome-sele",
+                "Spårsele 20 meter", "IGP-sele", "Helikopterlyftsele", "Tillbaka"
+            };
             Menu matMenu = new Menu(prompt, options);
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, options);
