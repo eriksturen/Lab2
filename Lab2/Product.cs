@@ -4,9 +4,10 @@ public class Product
 {
     public enum Categories
     {
+        Main,
         Mat,
         Leksaker,
-        Koppel
+        Koppel,
     }
     // Product class. To populate lists for the menu class and so on 
     public string ProductId { get; set; }

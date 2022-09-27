@@ -29,8 +29,7 @@ namespace Lab2
 
         private void RunMainMenu()
         {
-            List<string> baseOptions = new List<string>()
-                { "Mat", "Leksaker", "Koppel, halsband och selar", "Kassa", "Kundvagn", "Avsluta" };
+            List<Product> baseOptions = GetProducts("Main");
             Menu mainMenu = new Menu(prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
@@ -48,10 +47,6 @@ namespace Lab2
                 case 2:
                     KoppelOchHalsband();
                     break;
-                case 3:
-                    break;
-                case 4:
-                    break;
                 case 5:
                     Exit();
                     break;
@@ -60,7 +55,7 @@ namespace Lab2
             }
         }
 
-        private void Back(int selectedIndex, List<string> options)
+        private void Back(int selectedIndex, List<Product> options)
         {
             if (selectedIndex == options.Count - 1)
             {
@@ -70,36 +65,34 @@ namespace Lab2
 
         private void Exit()
         {
-            Console.WriteLine("Press any key to exit...");
+            Console.WriteLine("Tack och välkommen åter!");
             Console.ReadKey();
             Environment.Exit(0);
         }
 
+
         private void Mat()
         {
             List<Product> products = GetProducts("Mat");
-            List<string> options = GetNames(products);
-            Menu matMenu = new Menu(prompt, options);
+            Menu matMenu = new Menu(prompt, products);
             int selectedIndex = matMenu.Run();
-            Back(selectedIndex, options);
+            Back(selectedIndex, products);
         }
 
         private void Leksaker()
         {
             List<Product> products = GetProducts("Leksaker");
-            List<string> options = GetNames(products);
-            Menu matMenu = new Menu(prompt, options);
+            Menu matMenu = new Menu(prompt, products);
             int selectedIndex = matMenu.Run();
-            Back(selectedIndex, options);
+            Back(selectedIndex, products);
         }
 
         private void KoppelOchHalsband()
         {
             List<Product> products = GetProducts("Koppel");
-            List<string> options = GetNames(products);
-            Menu matMenu = new Menu(prompt, options);
+            Menu matMenu = new Menu(prompt, products);
             int selectedIndex = matMenu.Run();
-            Back(selectedIndex, options);
+            Back(selectedIndex, products);
         }
 
 
@@ -115,7 +108,7 @@ namespace Lab2
             // then add to productsList
             foreach (string line in lines)
             {
-                string[] info = line.Split(", ");
+                string[] info = line.Split("; ");
                 Product tempProduct = new Product(info[0], info[1], info[2], info[3]);
                 allProducts.Add(tempProduct);
             } 

@@ -9,10 +9,14 @@ namespace Lab2
     internal class Menu
     {
         public int SelectedIndex { get; set; }
-        public List<string> Options { get; set; }
+        public List<Product> Options { get; set; }
         public string Prompt { get; set; }
 
-        public Menu(string prompt, List<string> options)
+
+        // at this point I should probably create an override
+        // that can create menus with other options than products
+        // it gets a bit convoluted storing "back" options and so on in the product data file... 
+        public Menu(string prompt, List<Product> options)
         {
             Prompt = prompt;
             Options = options;
@@ -29,7 +33,7 @@ namespace Lab2
             Console.WriteLine(Prompt);
             for (int i = 0; i < Options.Count; i++)
             {
-                string CurrentOption = Options[i];
+                string CurrentOption = Options[i].Name;
                 string prefix;
 
                 if (i == SelectedIndex)
