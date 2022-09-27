@@ -77,15 +77,8 @@ namespace Lab2
 
         private void Mat()
         {
-
-            // temporary until data in textfile is possible 
-            Product standardt = new Product("Standardt extra", Product.Categories.Mat, 450);
-            Product royalCanin = new Product("Royal Canin", Product.Categories.Mat, 450);
-            Product köttfärs = new Product("Köttfärs på tunna", Product.Categories.Mat, 450);
-            
-
-            List<string> options = new List<string>()
-                { standardt.Name, royalCanin.Name, köttfärs.Name, "Tillbaka" };
+            List<Product> products = GetProducts("Mat");
+            List<string> options = GetNames(products);
             Menu matMenu = new Menu(prompt, options);
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, options);
@@ -93,7 +86,8 @@ namespace Lab2
 
         private void Leksaker()
         {
-            List<string> options = new List<string>() { "Kong", "Frisbee", "Herding ball", "Tillbaka" };
+            List<Product> products = GetProducts("Leksaker");
+            List<string> options = GetNames(products);
             Menu matMenu = new Menu(prompt, options);
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, options);
@@ -101,14 +95,59 @@ namespace Lab2
 
         private void KoppelOchHalsband()
         {
-            List<string> options = new List<string>()
-            {
-                "Läderhalsband", "Spårlina 10 meter", "Nome-sele",
-                "Spårsele 20 meter", "IGP-sele", "Helikopterlyftsele", "Tillbaka"
-            };
+            List<Product> products = GetProducts("Koppel");
+            List<string> options = GetNames(products);
             Menu matMenu = new Menu(prompt, options);
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, options);
+        }
+
+
+        // Shop class gets a readFromFile function to read in data and create a product from info in a textfile
+        // this is so that the shop class can populate it's categories with products
+        private List<Product> ReadFromFile()
+        {
+            List<Product> allProducts = new List<Product>();
+            // ReadFromFile gets all the data from the file - first as array of strings, one for each line
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Products.txt.txt");
+            
+            // so for each line we split it and create a product from that info
+            // then add to productsList
+            foreach (string line in lines)
+            {
+                string[] info = line.Split(", ");
+                Product tempProduct = new Product(info[0], info[1], info[2], info[3]);
+                allProducts.Add(tempProduct);
+            } 
+            return allProducts;
+        }
+        
+        // This function is continuation of ReadFromFile() 
+        // here we get products from full list matching the provided category
+        private List<Product> GetProducts(string category)
+        {
+            List<Product> products = new List<Product>();
+
+            foreach (Product product in ReadFromFile())
+            {
+                Product.Categories productCategory = Enum.Parse<Product.Categories>(category);
+                if (product.Category == productCategory)
+                {
+                    products.Add(product);
+                }
+            }
+            return products;
+        }
+
+        private List<string> GetNames(List<Product> products)
+        {
+            List<string> options = new List<string>();
+            foreach (Product product in products)
+            {
+                options.Add(product.Name);
+            }
+            options.Add("Tillbaka");
+            return options;
         }
     }
 }

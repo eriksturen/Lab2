@@ -21,6 +21,9 @@ namespace Lab2
 
         // function to display whatever options is current 
         // later going to be product list and settings and customer cart and so on
+
+        // could change all of this so that it shows a Product instead of string for CurrentOption
+        // also so that it takes a list of Products 
         private void DisplayOptions()
         {
             Console.WriteLine(Prompt);
