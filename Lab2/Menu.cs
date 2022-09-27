@@ -42,12 +42,14 @@ namespace Lab2
         private void DisplayOptions()
         {
             string CurrentOption = "";
+            int price = 0;
             Console.WriteLine(Prompt);
             for (int i = 0; i < Count; i++)
             {
                 if (Options != null)
                 {
                     CurrentOption = Options[i].Name;
+                    price = Options[i].Price;
                 }
                 else if (stringOptions != null)
                 {
@@ -67,7 +69,16 @@ namespace Lab2
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
-                Console.WriteLine($"{prefix} << {CurrentOption} >>");
+
+                if (price > 0)
+                {
+                    Console.WriteLine($"{prefix}    {CurrentOption}; {price} kr   ");
+                }
+                else
+                {
+                    Console.WriteLine($"{prefix} << {CurrentOption} >>");
+
+                }
             }
             Console.ResetColor();
         }
