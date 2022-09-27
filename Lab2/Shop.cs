@@ -77,8 +77,15 @@ namespace Lab2
 
         private void Mat()
         {
+
+            // temporary until data in textfile is possible 
+            Product standardt = new Product("Standardt extra", Product.Categories.Mat, 450);
+            Product royalCanin = new Product("Royal Canin", Product.Categories.Mat, 450);
+            Product köttfärs = new Product("Köttfärs på tunna", Product.Categories.Mat, 450);
+            
+
             List<string> options = new List<string>()
-                { "Standardt extra", "Royal Canin", "Köttfärs på tunna", "Tillbaka" };
+                { standardt.Name, royalCanin.Name, köttfärs.Name, "Tillbaka" };
             Menu matMenu = new Menu(prompt, options);
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, options);
