@@ -10,7 +10,9 @@ namespace Lab2
     {
         public int SelectedIndex { get; set; }
         public List<Product> Options { get; set; }
+        public List<string> stringOptions { get; set; }
         public string Prompt { get; set; }
+        public int Count { get; set; }
 
 
         // at this point I should probably create an override
@@ -21,6 +23,15 @@ namespace Lab2
             Prompt = prompt;
             Options = options;
             SelectedIndex = 0;
+            Count = options.Count;
+        }
+
+        public Menu(string prompt, List<string> options)
+        {
+            Prompt = prompt;
+            stringOptions = options;
+            SelectedIndex = 0;
+            Count = options.Count;
         }
 
         // function to display whatever options is current 
@@ -30,10 +41,18 @@ namespace Lab2
         // also so that it takes a list of Products 
         private void DisplayOptions()
         {
+            string CurrentOption = "";
             Console.WriteLine(Prompt);
-            for (int i = 0; i < Options.Count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                string CurrentOption = Options[i].Name;
+                if (Options != null)
+                {
+                    CurrentOption = Options[i].Name;
+                }
+                else if (stringOptions != null)
+                {
+                    CurrentOption = stringOptions[i];
+                }
                 string prefix;
 
                 if (i == SelectedIndex)
@@ -73,13 +92,13 @@ namespace Lab2
                     // instead of going off the screen
                     if (SelectedIndex == -1)
                     {
-                        SelectedIndex = Options.Count - 1;
+                        SelectedIndex = Count - 1;
                     }
                 }
                 else if (keyPressed == ConsoleKey.DownArrow)
                 {
                     SelectedIndex++;
-                    if (SelectedIndex == Options.Count)
+                    if (SelectedIndex == Count)
                     {
                         SelectedIndex = 0;
                     }

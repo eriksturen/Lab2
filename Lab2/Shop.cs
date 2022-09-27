@@ -29,7 +29,7 @@ namespace Lab2
 
         private void RunMainMenu()
         {
-            List<Product> baseOptions = GetProducts("Main");
+            List<string> baseOptions = new List<string>() {"Mat", "Leksaker", "Koppel, halsband och selar", "Kassa", "Kundvagn", "Avsluta"};
             Menu mainMenu = new Menu(prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();

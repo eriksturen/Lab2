@@ -1,9 +1,3 @@
-mat; Mat; Main; 0
-leksaker; Leksaker; Main; 0
-koppel; Koppel, halsband och selar; Main; 0
-kassa; Kassa; Main; 0
-kundvagn; Kundvagn; Main; 0
-avsluta; Avsluta; Main; 0
 standardt; Standardt extra; Mat; 450
 royalCanin; Royal Canin; Mat; 350
 köttfärs; Köttfärs på tunna; Mat; 600
