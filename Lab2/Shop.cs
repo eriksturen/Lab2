@@ -135,7 +135,22 @@ namespace Lab2
             List<Product> cartProducts = cart.GetCart();
             Menu cartMenu = new Menu(cartPrompt, cartProducts);
             int selectedIndex = cartMenu.Run();
-            Back(selectedIndex, cartProducts);
+            if (cartProducts.Count > 1)
+            {
+                if (selectedIndex < cartProducts.Count - 1)
+                {
+                    cart.RemoveFromCart(selectedIndex, cartProducts);
+                    Cart();
+                }
+                else
+                {
+                    Back(selectedIndex, cartProducts);
+                }
+            }
+            else
+            {
+                Back(selectedIndex, cartProducts);
+            }
         }
 
         // TODO 3 Fix Register where PayProducts() possible 

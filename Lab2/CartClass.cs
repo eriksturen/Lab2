@@ -61,6 +61,30 @@ public class CartClass
         }
     }
 
+    public void RemoveFromCart(int selectedIndex, List<Product> options)
+    {
+        if (options[selectedIndex].Price != null)
+        {
+            bool productInCart = CartProducts.Select(word => word.ProductId).Contains(options[selectedIndex].ProductId);
+
+            if (productInCart)
+            {
+                Product cartProduct =
+                    (Product)CartProducts.First(product => product.ProductId == options[selectedIndex].ProductId);
+                Console.WriteLine($"{cartProduct.Name} reducerades med 1 i kundvagnen.");
+                if (cartProduct.CartQuantity > 1)
+                {
+                    cartProduct.CartQuantity--;
+                }
+                else if (cartProduct.CartQuantity == 1)
+                {
+                    CartProducts.Remove(cartProduct);
+                }
+                Console.ReadKey();
+            }
+        }
+    }
+
     public List<Product> GetCart()
     {
         // The LINQ here makes sure that "Tillbaka" is always last.
