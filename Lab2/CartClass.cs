@@ -6,8 +6,7 @@ namespace Lab2;
 
 public class CartClass
 {
-
-    public List<Product> CartProducts{ get; set; }
+    public List<Product> CartProducts { get; set; }
     public int TotalPrice { get; set; }
 
     public CartClass()
@@ -29,7 +28,8 @@ public class CartClass
 
             if (productInCart)
             {
-                Product cartProduct = (Product)CartProducts.First(product => product.ProductId == options[selectedIndex].ProductId);
+                Product cartProduct =
+                    (Product)CartProducts.First(product => product.ProductId == options[selectedIndex].ProductId);
                 Console.WriteLine($"{cartProduct.Name} lades till i kundvagnen.");
                 cartProduct.CartQuantity++;
                 Console.ReadKey();
@@ -41,16 +41,15 @@ public class CartClass
                 Console.WriteLine($"{cartProduct.Name} lades till i kundvagnen.");
                 cartProduct.CartQuantity++;
                 Console.ReadKey();
-
             }
         }
-
-        
     }
 
     public List<Product> GetCart()
     {
-        return CartProducts;
+        // The LINQ here makes sure that "Tillbaka" is always last.
+        // This is important because last alternative in list is always the back button 
+        var OrderedCart = CartProducts.OrderBy(s => s.Name == "Tillbaka").ToList();
+        return OrderedCart;
     }
-
 }

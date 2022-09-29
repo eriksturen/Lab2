@@ -9,7 +9,6 @@ namespace Lab2
 {
     class Shop
     {
-
         string prompt = @"
     ██╗  ██╗██╗   ██╗███╗   ██╗██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗       ██╗        ██████╗ ██████╗ 
     ██║  ██║██║   ██║████╗  ██║██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝       ██║       ██╔════╝██╔═══██╗
@@ -20,9 +19,10 @@ namespace Lab2
                                                                                                                    
     Välkommen till Hundsport & Co!
     (Välj alternativ nedan med hjälp av piltangenterna och enter.)
-    "; 
-        
-        CartClass cart = new CartClass(); 
+    ";
+
+        CartClass cart = new CartClass();
+
         public void Start()
         {
             Console.Title = "Hundsport & Co";
@@ -31,7 +31,8 @@ namespace Lab2
 
         private void RunMainMenu()
         {
-            List<string> baseOptions = new List<string>() {"Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Avsluta"};
+            List<string> baseOptions = new List<string>()
+                { "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Avsluta" };
             Menu mainMenu = new Menu(prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
@@ -49,7 +50,7 @@ namespace Lab2
                 case 2:
                     KoppelOchHalsband();
                     break;
-                case 3: 
+                case 3:
                     Cart();
                     break;
                 case 5:
@@ -74,7 +75,6 @@ namespace Lab2
             Console.ReadKey();
             Environment.Exit(0);
         }
-
 
         private void Mat()
         {
@@ -124,7 +124,6 @@ namespace Lab2
             }
         }
 
-        // TODO 2 Fix Back button in CART
         // TODO 4 Cart should be saved to UserClass() - available on Login
         private void Cart()
         {
@@ -144,7 +143,7 @@ namespace Lab2
             List<Product> allProducts = new List<Product>();
             // ReadFromFile gets all the data from the file - first as array of strings, one for each line
             string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Products.txt.txt");
-            
+
             // so for each line we split it and create a product from that info
             // then add to productsList
             foreach (string line in lines)
@@ -152,10 +151,11 @@ namespace Lab2
                 string[] info = line.Split("; ");
                 Product tempProduct = new Product(info[0], info[1], info[2], info[3]);
                 allProducts.Add(tempProduct);
-            } 
+            }
+
             return allProducts;
         }
-        
+
         // This function is continuation of ReadFromFile() 
         // here we get products from full list matching the provided category
         private List<Product> GetProducts(string category)
@@ -170,6 +170,7 @@ namespace Lab2
                     products.Add(product);
                 }
             }
+
             return products;
         }
 
@@ -180,6 +181,7 @@ namespace Lab2
             {
                 options.Add(product.Name);
             }
+
             options.Add("Tillbaka");
             return options;
         }
