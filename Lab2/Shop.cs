@@ -81,7 +81,7 @@ namespace Lab2
             List<Product> products = GetProducts("Mat");
             Menu matMenu = new Menu(prompt, products);
             int selectedIndex = matMenu.Run();
-            if (selectedIndex < products.Count - 2)
+            if (selectedIndex < products.Count - 1)
             {
                 cart.AddToCart(selectedIndex, products);
                 Mat();
@@ -91,6 +91,8 @@ namespace Lab2
                 Back(selectedIndex, products);
             }
         }
+
+        // TODO 1 Update rest of categories so that they show products correctly and allow AddToCart()
 
         private void Leksaker()
         {
@@ -107,6 +109,8 @@ namespace Lab2
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, products);
         }
+
+        // TODO 2 Fix Back button in CART
 
         private void Cart()
         {

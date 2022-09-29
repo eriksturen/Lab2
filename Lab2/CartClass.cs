@@ -6,7 +6,7 @@ namespace Lab2;
 
 public class CartClass
 {
-    // TODO 1 Also need to be able to specify an amount of each product
+
     public List<Product> CartProducts{ get; set; }
     public int TotalPrice { get; set; }
 
@@ -20,7 +20,6 @@ public class CartClass
         CartProducts.Add(tillbaka);
     }
 
-    // TODO 4 Add CartProduct to cart 
 
     public void AddToCart(int selectedIndex, List<Product> options)
     {
@@ -49,7 +48,6 @@ public class CartClass
         
     }
 
-    // TODO 2 Need a function to send names of products to Shop() and then on to Menu() - List<Product>
     public List<Product> GetCart()
     {
         return CartProducts;
