@@ -73,6 +73,7 @@ namespace Lab2
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
 
+                 
                 if (quantity > 0)
                 {
                     Console.WriteLine(
@@ -87,8 +88,8 @@ namespace Lab2
                     Console.WriteLine($"{prefix} << {CurrentOption} >>");
                 }
             }
-
             Console.ResetColor();
+
         }
 
         public int Run()

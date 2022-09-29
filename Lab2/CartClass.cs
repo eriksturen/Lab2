@@ -7,7 +7,23 @@ namespace Lab2;
 public class CartClass
 {
     public List<Product> CartProducts { get; set; }
-    public int TotalPrice { get; set; }
+    private int _totalPrice;
+
+    public int TotalPrice
+    {
+        get
+        {
+            int tot = 0;
+            foreach (Product product in CartProducts)
+            {
+                tot += product.Price * product.CartQuantity;
+            }
+            _totalPrice = tot;
+            return _totalPrice;
+        }
+        set { _totalPrice = value; }
+    }
+
 
     public CartClass()
     {

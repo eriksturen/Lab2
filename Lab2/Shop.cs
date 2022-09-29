@@ -124,11 +124,16 @@ namespace Lab2
             }
         }
 
+        // TODO 3.1 Cart should show total price of all products 
         // TODO 4 Cart should be saved to UserClass() - available on Login
         private void Cart()
         {
+            string cartPrompt = $"{prompt} \n" +
+                                $"---------------------------------------------\n" +
+                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice} kr \n" +
+                                $"---------------------------------------------\n";
             List<Product> cartProducts = cart.GetCart();
-            Menu cartMenu = new Menu(prompt, cartProducts);
+            Menu cartMenu = new Menu(cartPrompt, cartProducts);
             int selectedIndex = cartMenu.Run();
             Back(selectedIndex, cartProducts);
         }
