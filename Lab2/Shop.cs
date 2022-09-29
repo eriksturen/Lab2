@@ -92,26 +92,40 @@ namespace Lab2
             }
         }
 
-        // TODO 1 Update rest of categories so that they show products correctly and allow AddToCart()
-
         private void Leksaker()
         {
             List<Product> products = GetProducts("Leksaker");
-            Menu matMenu = new Menu(prompt, products);
-            int selectedIndex = matMenu.Run();
-            Back(selectedIndex, products);
+            Menu LeksakerMenu = new Menu(prompt, products);
+            int selectedIndex = LeksakerMenu.Run();
+            if (selectedIndex < products.Count - 1)
+            {
+                cart.AddToCart(selectedIndex, products);
+                Leksaker();
+            }
+            else
+            {
+                Back(selectedIndex, products);
+            }
         }
 
         private void KoppelOchHalsband()
         {
             List<Product> products = GetProducts("Koppel");
-            Menu matMenu = new Menu(prompt, products);
-            int selectedIndex = matMenu.Run();
-            Back(selectedIndex, products);
+            Menu KoppelMenu = new Menu(prompt, products);
+            int selectedIndex = KoppelMenu.Run();
+            if (selectedIndex < products.Count - 1)
+            {
+                cart.AddToCart(selectedIndex, products);
+                KoppelOchHalsband();
+            }
+            else
+            {
+                Back(selectedIndex, products);
+            }
         }
 
         // TODO 2 Fix Back button in CART
-
+        // TODO 4 Cart should be saved to UserClass() - available on Login
         private void Cart()
         {
             List<Product> cartProducts = cart.GetCart();
@@ -119,6 +133,8 @@ namespace Lab2
             int selectedIndex = cartMenu.Run();
             Back(selectedIndex, cartProducts);
         }
+
+        // TODO 3 Fix Register where PayProducts() possible 
 
 
         // Shop class gets a readFromFile function to read in data and create a product from info in a textfile
