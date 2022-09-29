@@ -15,6 +15,7 @@ namespace Lab2
         public int Count { get; set; }
 
 
+
         // at this point I should probably create an override
         // that can create menus with other options than products
         // it gets a bit convoluted storing "back" options and so on in the product data file... 
@@ -43,6 +44,7 @@ namespace Lab2
         {
             string CurrentOption = "";
             int price = 0;
+            int quantity = 0;
             Console.WriteLine(Prompt);
             for (int i = 0; i < Count; i++)
             {
@@ -50,6 +52,7 @@ namespace Lab2
                 {
                     CurrentOption = Options[i].Name;
                     price = Options[i].Price;
+                    quantity = Options[i].CartQuantity;
                 }
                 else if (stringOptions != null)
                 {
@@ -74,10 +77,13 @@ namespace Lab2
                 {
                     Console.WriteLine($"{prefix}    {CurrentOption}; {price} kr   ");
                 }
+                else if (quantity > 0)
+                {
+                    Console.WriteLine($"{prefix}    {CurrentOption}; {quantity} st, á {price} kr. Total: {price*quantity} kr  ");
+                }
                 else
                 {
                     Console.WriteLine($"{prefix} << {CurrentOption} >>");
-
                 }
             }
             Console.ResetColor();
@@ -116,7 +122,7 @@ namespace Lab2
                 }
             } while (keyPressed != ConsoleKey.Enter);
 
-
+            
             return SelectedIndex;
         }
 

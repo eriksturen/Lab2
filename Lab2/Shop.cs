@@ -9,6 +9,7 @@ namespace Lab2
 {
     class Shop
     {
+
         string prompt = @"
     ██╗  ██╗██╗   ██╗███╗   ██╗██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗       ██╗        ██████╗ ██████╗ 
     ██║  ██║██║   ██║████╗  ██║██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝       ██║       ██╔════╝██╔═══██╗
@@ -19,8 +20,9 @@ namespace Lab2
                                                                                                                    
     Välkommen till Hundsport & Co!
     (Välj alternativ nedan med hjälp av piltangenterna och enter.)
-    ";
-
+    "; 
+        
+        CartClass cart = new CartClass(); 
         public void Start()
         {
             Console.Title = "Hundsport & Co";
@@ -29,7 +31,7 @@ namespace Lab2
 
         private void RunMainMenu()
         {
-            List<string> baseOptions = new List<string>() {"Mat", "Leksaker", "Koppel, halsband och selar", "Kassa", "Kundvagn", "Avsluta"};
+            List<string> baseOptions = new List<string>() {"Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Avsluta"};
             Menu mainMenu = new Menu(prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
@@ -46,6 +48,9 @@ namespace Lab2
                     break;
                 case 2:
                     KoppelOchHalsband();
+                    break;
+                case 3: 
+                    Cart();
                     break;
                 case 5:
                     Exit();
@@ -93,6 +98,14 @@ namespace Lab2
             Menu matMenu = new Menu(prompt, products);
             int selectedIndex = matMenu.Run();
             Back(selectedIndex, products);
+        }
+
+        private void Cart()
+        {
+            List<Product> cartProducts = cart.GetCart();
+            Menu cartMenu = new Menu(prompt, cartProducts);
+            int selectedIndex = cartMenu.Run();
+            Back(selectedIndex, cartProducts);
         }
 
 
