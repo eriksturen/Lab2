@@ -81,7 +81,15 @@ namespace Lab2
             List<Product> products = GetProducts("Mat");
             Menu matMenu = new Menu(prompt, products);
             int selectedIndex = matMenu.Run();
-            Back(selectedIndex, products);
+            if (selectedIndex < products.Count - 2)
+            {
+                cart.AddToCart(selectedIndex, products);
+                Mat();
+            }
+            else
+            {
+                Back(selectedIndex, products);
+            }
         }
 
         private void Leksaker()

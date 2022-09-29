@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 
 namespace Lab2;
 
@@ -21,11 +22,31 @@ public class CartClass
 
     // TODO 4 Add CartProduct to cart 
 
-    public void AddToCart(Product product)
+    public void AddToCart(int selectedIndex, List<Product> options)
     {
-        Product cartProduct = product;
-        cartProduct.CartQuantity++; 
-        CartProducts.Add(cartProduct);
+        if (options[selectedIndex].Price != null)
+        {
+            bool productInCart = CartProducts.Select(word => word.ProductId).Contains(options[selectedIndex].ProductId);
+
+            if (productInCart)
+            {
+                Product cartProduct = (Product)CartProducts.First(product => product.ProductId == options[selectedIndex].ProductId);
+                Console.WriteLine($"{cartProduct.Name} lades till i kundvagnen.");
+                cartProduct.CartQuantity++;
+                Console.ReadKey();
+            }
+            else if (!productInCart)
+            {
+                Product cartProduct = options[selectedIndex];
+                this.CartProducts.Add(cartProduct);
+                Console.WriteLine($"{cartProduct.Name} lades till i kundvagnen.");
+                cartProduct.CartQuantity++;
+                Console.ReadKey();
+
+            }
+        }
+
+        
     }
 
     // TODO 2 Need a function to send names of products to Shop() and then on to Menu() - List<Product>

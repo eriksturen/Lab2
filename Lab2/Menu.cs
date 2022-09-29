@@ -73,13 +73,13 @@ namespace Lab2
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
 
-                if (price > 0)
-                {
-                    Console.WriteLine($"{prefix}    {CurrentOption}; {price} kr   ");
-                }
-                else if (quantity > 0)
+                if (quantity > 0)
                 {
                     Console.WriteLine($"{prefix}    {CurrentOption}; {quantity} st, á {price} kr. Total: {price*quantity} kr  ");
+                }
+                else if (price > 0)
+                {
+                    Console.WriteLine($"{prefix}    {CurrentOption}; {price} kr   ");
                 }
                 else
                 {
