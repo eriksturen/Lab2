@@ -22,6 +22,7 @@ namespace Lab2
     ";
 
         CartClass cart = new CartClass();
+        DataHandler dataHandler = new DataHandler();
 
         public void Start()
         {
@@ -78,7 +79,7 @@ namespace Lab2
 
         private void Mat()
         {
-            List<Product> products = GetProducts("Mat");
+            List<Product> products = dataHandler.GetProducts("Mat");
             Menu matMenu = new Menu(prompt, products);
             int selectedIndex = matMenu.Run();
             if (selectedIndex < products.Count - 1)
@@ -94,7 +95,7 @@ namespace Lab2
 
         private void Leksaker()
         {
-            List<Product> products = GetProducts("Leksaker");
+            List<Product> products = dataHandler.GetProducts("Leksaker");
             Menu LeksakerMenu = new Menu(prompt, products);
             int selectedIndex = LeksakerMenu.Run();
             if (selectedIndex < products.Count - 1)
@@ -110,7 +111,7 @@ namespace Lab2
 
         private void KoppelOchHalsband()
         {
-            List<Product> products = GetProducts("Koppel");
+            List<Product> products = dataHandler.GetProducts("Koppel");
             Menu KoppelMenu = new Menu(prompt, products);
             int selectedIndex = KoppelMenu.Run();
             if (selectedIndex < products.Count - 1)
@@ -124,7 +125,6 @@ namespace Lab2
             }
         }
 
-        // TODO 3.1 Cart should show total price of all products 
         // TODO 4 Cart should be saved to UserClass() - available on Login
         private void Cart()
         {
@@ -141,54 +141,5 @@ namespace Lab2
         // TODO 3 Fix Register where PayProducts() possible 
 
 
-        // Shop class gets a readFromFile function to read in data and create a product from info in a textfile
-        // this is so that the shop class can populate it's categories with products
-        private List<Product> ReadFromFile()
-        {
-            List<Product> allProducts = new List<Product>();
-            // ReadFromFile gets all the data from the file - first as array of strings, one for each line
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Products.txt.txt");
-
-            // so for each line we split it and create a product from that info
-            // then add to productsList
-            foreach (string line in lines)
-            {
-                string[] info = line.Split("; ");
-                Product tempProduct = new Product(info[0], info[1], info[2], info[3]);
-                allProducts.Add(tempProduct);
-            }
-
-            return allProducts;
-        }
-
-        // This function is continuation of ReadFromFile() 
-        // here we get products from full list matching the provided category
-        private List<Product> GetProducts(string category)
-        {
-            List<Product> products = new List<Product>();
-
-            foreach (Product product in ReadFromFile())
-            {
-                Product.Categories productCategory = Enum.Parse<Product.Categories>(category);
-                if (product.Category == productCategory)
-                {
-                    products.Add(product);
-                }
-            }
-
-            return products;
-        }
-
-        private List<string> GetNames(List<Product> products)
-        {
-            List<string> options = new List<string>();
-            foreach (Product product in products)
-            {
-                options.Add(product.Name);
-            }
-
-            options.Add("Tillbaka");
-            return options;
-        }
     }
 }
