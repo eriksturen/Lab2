@@ -6,8 +6,21 @@
         {
             LoginClass login = new LoginClass();
             login.Login();
-            Shop shop = new Shop();
-            shop.Start();
+            if (login.LoggedIn == true)
+            {
+                Console.WriteLine("Du är inloggad! Tryck valfri tangent för att börja handla.");
+                Console.ReadKey();
+                Shop shop = new Shop();
+                shop.Start();
+            }
+            else
+            {
+                Console.WriteLine("Fel lösenord eller användaren ej registrerad. \n" +
+                                  "Försök igen eller registrera ny användare. \n" + 
+                                  "(Tryck valfri tangent för att komma vidare.)");
+                Console.ReadKey();
+                login.Login();
+            }
 
 
             // TODO 6 Fix LogIn() - Class and Methods 

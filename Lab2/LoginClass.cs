@@ -1,8 +1,13 @@
-﻿namespace Lab2;
+﻿using System.Threading.Channels;
+
+namespace Lab2;
 
 public class LoginClass
 {
-    private string prompt = new Shop().prompt;   
+    private string prompt = new Shop().prompt;
+
+    public bool LoggedIn { get; set; }
+
     // Login should take User info 
     // Compare to a user database 
     // if user is found and name + pass matches
@@ -18,17 +23,39 @@ public class LoginClass
         int selectedIndex = loginMenu.Run();
         if (selectedIndex == 0)
         {
-            Console.WriteLine("Ok välkommen skriv in användarnamn: ");
-            string userName = Console.ReadLine();
+            // TODO 8 make these a little prettier?
+            Console.WriteLine("Välkommen skriv in användarnamn: ");
+            string username = Console.ReadLine();
             Console.WriteLine("Skriv in lösenord: ");
             string password = Console.ReadLine();
+            User newUser = new User(username, password);
+            List<User> users = DataHandler.GetUsers();
+            foreach (User user in users)
+            {
+                if (user.Username == newUser.Username && user.Password == newUser.Password)
+                {
+                    LoggedIn = true;
+                }
+            }
         }
-        Console.ReadKey();
+        else if (selectedIndex == 1)
+        {
+            RegisterUser();
+        }
     }
 
     // Register new User
-    // public User RegisterUser()
-    // {
-    //
-    // }
+    public void RegisterUser()
+    {
+        Console.WriteLine("Välkommen skriv in önskat användarnamn: ");
+        string userName = Console.ReadLine();
+        Console.WriteLine("Skriv in önskat lösenord: ");
+        string password = Console.ReadLine();
+
+        User user = new User(userName, password);
+        DataHandler.WriteNewUser(user);
+        Console.WriteLine("Användare registrerad. Nu kan du logga in!");
+        Console.ReadKey();
+        Login();
+    }
 }

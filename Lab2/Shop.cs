@@ -22,7 +22,6 @@ namespace Lab2
     ";
 
         CartClass cart = new CartClass();
-        DataHandler dataHandler = new DataHandler();
 
         public void Start()
         {
@@ -72,7 +71,7 @@ namespace Lab2
             // Cashier() goes here! 
             else
             {
-                List<Product> products = dataHandler.GetProducts(category);
+                List<Product> products = DataHandler.GetProducts(category);
                 Menu newMenu = new Menu(prompt, products);
                 int selectedIndex = newMenu.Run();
                 if (selectedIndex < products.Count - 1)

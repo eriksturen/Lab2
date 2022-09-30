@@ -14,11 +14,11 @@ public class DataHandler
     // Maybe a bit inefficient but it's more scalable i think?
     // Seems weird to store the whole Shop database on client computer
 
-   
-    public List<Product> GetProducts(string category)
+    // methods are static because no need to create an object for each of these i think?
+    public static List<Product> GetProducts(string category)
     {
         List<Product> products = new List<Product>();
-        string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Products.txt.txt");
+        string[] lines = File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Products.txt");
 
         foreach (string line in lines)
         {
@@ -34,16 +34,25 @@ public class DataHandler
         return products;
     }
 
-    public List<string> GetNames(List<Product> products)
+    // GetUser function should look through database of users and if found return it 
+    public static List<User> GetUsers()
     {
-        List<string> options = new List<string>();
-        foreach (Product product in products)
+        string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
+        List<User> users = new List<User>();
+        foreach (string line in lines)
         {
-            options.Add(product.Name);
+            string[] info = line.Split("; ");
+            User newUser = new User(info[0], info[1]);
+            users.Add(newUser);
         }
+        return users;
+    }
 
-        options.Add("Tillbaka");
-        return options;
+    public static void WriteNewUser(User user)
+    {
+        string line = $"{user.Username}; {user.Password}";
+        File.AppendAllText(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt",
+            line + Environment.NewLine);
     }
 
 }
