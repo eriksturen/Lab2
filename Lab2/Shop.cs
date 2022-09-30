@@ -32,7 +32,7 @@ namespace Lab2
         private void RunMainMenu()
         {
             List<string> baseOptions = new List<string>()
-                { "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Avsluta" };
+                { "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Logga ut", "Avsluta" };
             Menu mainMenu = new Menu(prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
@@ -63,6 +63,14 @@ namespace Lab2
             if (category == "Kundvagn")
             {
                 Cart();
+            }
+            // TODO 11 Now cycles back to Main() - dunno if this is ok but works as intended?
+            else if (category == "Logga ut")
+            {
+                Console.WriteLine("Du är utloggad. Tryck valfri tangent för att fortsätta.");
+                Console.ReadKey();
+                string[] args = new string[] { };
+                Program.Main(args);
             }
             else if (category == "Avsluta")
             {

@@ -16,6 +16,8 @@ public class LoginClass
     // it should also give the possibility to register a user 
     // that shows similar interface and puts an new User in the database 
 
+    
+
     public void Login()
     {
         List<string> options = new List<string>() { "Logga in", "Registrera ny användare" };
@@ -42,6 +44,12 @@ public class LoginClass
         {
             RegisterUser();
         }
+    }
+
+    // TODO 10 IMPORTANT LogOut function needed
+    public void Logout()
+    {
+        LoggedIn = false;
     }
 
     // Register new User
