@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Lab2
 {
-    class Shop
+    public class Shop
     {
-        string prompt = @"
+        public string prompt = @"
     ██╗  ██╗██╗   ██╗███╗   ██╗██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗       ██╗        ██████╗ ██████╗ 
     ██║  ██║██║   ██║████╗  ██║██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝       ██║       ██╔════╝██╔═══██╗
     ███████║██║   ██║██╔██╗ ██║██║  ██║███████╗██████╔╝██║   ██║██████╔╝   ██║       ████████╗    ██║     ██║   ██║
@@ -69,6 +69,7 @@ namespace Lab2
             {
                 Exit();
             }
+            // Cashier() goes here! 
             else
             {
                 List<Product> products = dataHandler.GetProducts(category);
@@ -87,6 +88,8 @@ namespace Lab2
         }
 
         // TODO 4 Cart should be saved to UserClass() - available on Login
+        // cart menu is a bit different to the regular menu since the only real functions in it should be to see the cart
+        // remove products and see total price 
         private void Cart()
         {
             string cartPrompt = $"{prompt} \n" +

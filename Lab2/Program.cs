@@ -4,6 +4,8 @@
     {
         static void Main(string[] args)
         {
+            LoginClass login = new LoginClass();
+            login.Login();
             Shop shop = new Shop();
             shop.Start();
 
