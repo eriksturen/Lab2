@@ -38,28 +38,8 @@ namespace Lab2
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
 
-            // having to do a switch statement for each new menu is irritating - better way should be possible 
-
-            switch (selectedIndex)
-            {
-                case 0:
-                    Mat();
-                    break;
-                case 1:
-                    Leksaker();
-                    break;
-                case 2:
-                    KoppelOchHalsband();
-                    break;
-                case 3:
-                    Cart();
-                    break;
-                case 5:
-                    Exit();
-                    break;
-                default:
-                    break;
-            }
+            // Get the SubCategories with products - or get Cart/Cashier/Exit functions
+            CategoryMenu(baseOptions[selectedIndex].Split(",")[0]);
         }
 
         private void Back(int selectedIndex, List<Product> options)
@@ -77,51 +57,32 @@ namespace Lab2
             Environment.Exit(0);
         }
 
-        private void Mat()
-        {
-            List<Product> products = dataHandler.GetProducts("Mat");
-            Menu matMenu = new Menu(prompt, products);
-            int selectedIndex = matMenu.Run();
-            if (selectedIndex < products.Count - 1)
-            {
-                cart.AddToCart(selectedIndex, products);
-                Mat();
-            }
-            else
-            {
-                Back(selectedIndex, products);
-            }
-        }
 
-        private void Leksaker()
+        // Refactored
+        private void CategoryMenu(string category)
         {
-            List<Product> products = dataHandler.GetProducts("Leksaker");
-            Menu LeksakerMenu = new Menu(prompt, products);
-            int selectedIndex = LeksakerMenu.Run();
-            if (selectedIndex < products.Count - 1)
+            if (category == "Kundvagn")
             {
-                cart.AddToCart(selectedIndex, products);
-                Leksaker();
+                Cart();
+            }
+            else if (category == "Avsluta")
+            {
+                Exit();
             }
             else
             {
-                Back(selectedIndex, products);
-            }
-        }
-
-        private void KoppelOchHalsband()
-        {
-            List<Product> products = dataHandler.GetProducts("Koppel");
-            Menu KoppelMenu = new Menu(prompt, products);
-            int selectedIndex = KoppelMenu.Run();
-            if (selectedIndex < products.Count - 1)
-            {
-                cart.AddToCart(selectedIndex, products);
-                KoppelOchHalsband();
-            }
-            else
-            {
-                Back(selectedIndex, products);
+                List<Product> products = dataHandler.GetProducts(category);
+                Menu newMenu = new Menu(prompt, products);
+                int selectedIndex = newMenu.Run();
+                if (selectedIndex < products.Count - 1)
+                {
+                    cart.AddToCart(selectedIndex, products);
+                    CategoryMenu(category);
+                }
+                else
+                {
+                    Back(selectedIndex, products);
+                }
             }
         }
 
@@ -129,9 +90,10 @@ namespace Lab2
         private void Cart()
         {
             string cartPrompt = $"{prompt} \n" +
-                                $"---------------------------------------------\n" +
+                                $"--------------------------------------------------------\n" +
                                 $" Total kostnad för alla varor i korgen: {cart.TotalPrice} kr \n" +
-                                $"---------------------------------------------\n";
+                                $" Ta bort en vara genom att markera den och trycka enter \n" +
+                                $"--------------------------------------------------------\n";
             List<Product> cartProducts = cart.GetCart();
             Menu cartMenu = new Menu(cartPrompt, cartProducts);
             int selectedIndex = cartMenu.Run();

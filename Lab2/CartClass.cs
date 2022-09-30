@@ -28,8 +28,6 @@ public class CartClass
     public CartClass()
     {
         CartProducts = new List<Product>();
-        // TODO 5 maybe total price can be set in the prop instead of separate function? 
-        // that way it can be updated each time Get is run? 
         TotalPrice = 0;
         Product tillbaka = new Product("tillbaka", "Tillbaka", "Kundvagn", "0");
         CartProducts.Add(tillbaka);
