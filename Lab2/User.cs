@@ -2,6 +2,10 @@
 
 public class User
 {
+    // TODO 14 DiscountLevel implementation - apperently this needs to be as inheritance from the User-class
+    // so read/write functions and everything needs to be updated.
+    // The datafile for Users also needs to contain info on the discount level
+
     // Username and password are private so as to not be changeable from other parts of program
     public string Username { get; set; }
     public string Password { get; set; }

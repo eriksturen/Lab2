@@ -42,6 +42,8 @@ namespace Lab2
             RunMainMenu();
         }
 
+        // TODO 15 SETTINGS tab where currency can be changed 
+
         private void RunMainMenu()
         {
             List<string> baseOptions = new List<string>()
