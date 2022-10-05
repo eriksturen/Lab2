@@ -37,6 +37,8 @@ public class DataHandler
     // GetUser function should look through database of users and if found return it 
     public static List<User> GetUsers()
     {
+        // i föreläsningen används streamreader - streamwriter. Den öppnar en fil och skriver/läser 
+        // löpande. Verkar funka ungefär som with file as f open i python - måste ha Close() på slutet 
         string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
         List<User> users = new List<User>();
         foreach (string line in lines)
@@ -45,6 +47,7 @@ public class DataHandler
             User newUser = new User(info[0], info[1]);
             users.Add(newUser);
         }
+
         return users;
     }
 
@@ -54,5 +57,4 @@ public class DataHandler
         File.AppendAllText(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt",
             line + Environment.NewLine);
     }
-
 }

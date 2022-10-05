@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
@@ -21,7 +22,19 @@ namespace Lab2
     (Välj alternativ nedan med hjälp av piltangenterna och enter.)
     ";
 
+        public User User { get; set; }
+
         CartClass cart = new CartClass();
+
+        public Shop()
+        {
+        }
+
+        public Shop(User user)
+        {
+            User = user;
+        }
+
 
         public void Start()
         {
@@ -32,7 +45,10 @@ namespace Lab2
         private void RunMainMenu()
         {
             List<string> baseOptions = new List<string>()
-                { "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Logga ut", "Avsluta" };
+            {
+                "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Användarinfo", "Logga ut",
+                "Avsluta"
+            };
             Menu mainMenu = new Menu(prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
@@ -60,37 +76,45 @@ namespace Lab2
         // Refactored
         private void CategoryMenu(string category)
         {
-            if (category == "Kundvagn")
+            // Cleaner code with a switch statement here instead of all if/elif and so on for all the categories. 
+            // More scalable also - easier to figure out where to add a category/button/choice this way 
+            switch (category)
             {
-                Cart();
-            }
-            // TODO 11 Now cycles back to Main() - dunno if this is ok but works as intended?
-            else if (category == "Logga ut")
-            {
-                Console.WriteLine("Du är utloggad. Tryck valfri tangent för att fortsätta.");
-                Console.ReadKey();
-                string[] args = new string[] { };
-                Program.Main(args);
-            }
-            else if (category == "Avsluta")
-            {
-                Exit();
-            }
-            // Cashier() goes here! 
-            else
-            {
-                List<Product> products = DataHandler.GetProducts(category);
-                Menu newMenu = new Menu(prompt, products);
-                int selectedIndex = newMenu.Run();
-                if (selectedIndex < products.Count - 1)
-                {
-                    cart.AddToCart(selectedIndex, products);
-                    CategoryMenu(category);
-                }
-                else
-                {
-                    Back(selectedIndex, products);
-                }
+                case "Kundvagn":
+                    Cart();
+                    break;
+                case "Kassa":
+                    break;
+                case "Användarinfo":
+                    Console.WriteLine(User.ToString());
+                    Console.ReadKey();
+                    RunMainMenu();
+                    break;
+                case "Logga ut":
+                    // TODO 11 Now cycles back to Main() - dunno if this is ok but works as intended?
+                    Console.WriteLine("Du är utloggad. Tryck valfri tangent för att fortsätta.");
+                    Console.ReadKey();
+                    string[] args = new string[] { };
+                    Program.Main(args);
+                    break;
+                case "Avsluta":
+                    Exit();
+                    break;
+                default:
+                    List<Product> products = DataHandler.GetProducts(category);
+                    Menu newMenu = new Menu(prompt, products);
+                    int selectedIndex = newMenu.Run();
+                    if (selectedIndex < products.Count - 1)
+                    {
+                        cart.AddToCart(selectedIndex, products);
+                        CategoryMenu(category);
+                    }
+                    else
+                    {
+                        Back(selectedIndex, products);
+                    }
+
+                    break;
             }
         }
 
@@ -126,7 +150,5 @@ namespace Lab2
         }
 
         // TODO 3 Fix Register where PayProducts() possible 
-
-
     }
 }

@@ -18,6 +18,7 @@ public class CartClass
             {
                 tot += product.Price * product.CartQuantity;
             }
+
             _totalPrice = tot;
             return _totalPrice;
         }
@@ -78,7 +79,6 @@ public class CartClass
                 {
                     CartProducts.Remove(cartProduct);
                 }
-                Console.ReadKey();
             }
         }
     }

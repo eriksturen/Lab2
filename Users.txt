@@ -1,6 +1,4 @@
 Knatte; 123
 Fnatte; 321
 Tjatte; 213
-Benke; 123
-Rufus; 123
-Vicky; 123
+Kuken; 123
