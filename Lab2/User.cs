@@ -34,16 +34,13 @@ public class User
 
     public virtual void Login()
     {
-        string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
+        string[] lines = File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
         List<User> users = new List<User>();
         foreach (string line in lines)
         {
             string[] info = line.Split("; ");
-            if (info.Length < 3)
-            {
-                User newUser = new User(info[0], info[1]);
-                users.Add(newUser);
-            }
+            User newUser = new User(info[0], info[1]);
+            users.Add(newUser);
         }
         
         foreach (User u in users)
@@ -51,8 +48,6 @@ public class User
             if (u.Username == Username && u.Password == Password)
             {
                 LoggedIn = true;
-                Console.WriteLine("normal user");
-                Console.ReadKey();
             }
         }
     }

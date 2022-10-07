@@ -28,23 +28,33 @@ namespace Lab2
 
             // Ändringar i login bode bli typ: fråga om vill logga in - isåfall skriv in uesr/pass
             // 
-            List<string> options = new List<string>() { "Logga in", "Registrera ny användare" };
+            List<string> options = new List<string> { "Logga in", "Registrera ny användare" };
             Menu loginMenu = new Menu(prompt, options);
             int selectedIndex = loginMenu.Run();
-
-
 
             while (LoggedIn != true)
             {
                 if (selectedIndex == 0)
                 {
+                    // When login pressed default is to create and search for a premium user
+                    // If the login function can't find out a new normal user is created instead 
+                    // It then gets sent to shop class 
                     PremiumUser user = new PremiumUser();
                     user.Login();
                     if (user.LoggedIn)
                     {
-                        LoggedIn = true;
+                        if (user.DiscountName == "zero")
+                        {
+                            LoggedIn = true;
+                            Console.WriteLine("Normal user");
+                            Console.WriteLine("Du är inloggad! Tryck valfri tangent för att börja handla.");
+                            Console.ReadKey();
+                            User newUser = new User(user.Username, user.Password);
+                            Shop normalShop = new Shop(newUser);
+                            normalShop.Start();
+                        }
+
                         Console.WriteLine("Du är inloggad! Tryck valfri tangent för att börja handla.");
-                        Console.WriteLine($"username should be here {user.Username}");
                         Console.ReadKey();
                         Shop shop = new Shop(user);
                         shop.Start();
@@ -55,7 +65,7 @@ namespace Lab2
                                           "Försök igen eller registrera ny användare. \n" +
                                           "(Tryck valfri tangent för att komma vidare.)");
                         Console.ReadKey();
-                        string[] newArgs = new string[] {};
+                        string[] newArgs = {};
                         Main(newArgs);
                     }
                 }

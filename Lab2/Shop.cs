@@ -12,7 +12,8 @@ namespace Lab2
     {
         
 
-        public User User { get; set; }
+        public User? User { get; set; }
+        public PremiumUser? PremiumUser { get; set;  }
 
         CartClass cart = new CartClass();
 
@@ -25,6 +26,10 @@ namespace Lab2
             User = user;
         }
 
+        public Shop(PremiumUser user)
+        {
+            PremiumUser = user;
+        }
 
         public void Start()
         {
@@ -78,15 +83,23 @@ namespace Lab2
                 case "Kassa":
                     break;
                 case "Användarinfo":
-                    Console.WriteLine(User.ToString());
-                    Console.ReadKey();
+                    if (PremiumUser != null)
+                    {
+                        Console.WriteLine(PremiumUser.ToString());
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine(User.ToString());
+                        Console.ReadKey();
+                    }
                     RunMainMenu();
                     break;
                 case "Logga ut":
                     // TODO 11 Now cycles back to Main() - dunno if this is ok but works as intended?
                     Console.WriteLine("Du är utloggad. Tryck valfri tangent för att fortsätta.");
                     Console.ReadKey();
-                    string[] args = new string[] { };
+                    string[] args = { };
                     Program.Main(args);
                     break;
                 case "Avsluta":

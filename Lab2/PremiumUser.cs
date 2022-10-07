@@ -2,28 +2,42 @@
 
 public class PremiumUser : User
 {
-    public string? DiscountName { get; set; }
-    private double _discountLevel;
+    private string? _discountName;
 
-    public double DiscountLevel
+    public string? DiscountName
     {
-        get { return _discountLevel; }
+        get { return _discountName; }
         set
         {
+            _discountName = value;
             switch (DiscountName)
             {
                 case "Gold":
-                    _discountLevel = 0.15;
+                    _discountLevel = 0.15f;
                     break;
                 case "Silver":
-                    _discountLevel = 0.10;
+                    _discountLevel = 0.10f;
                     break;
                 case "Bronze":
-                    _discountLevel = 0.05;
+                    _discountLevel = 0.05f;
+                    break;
+                default:
+                    _discountLevel = 0f;
                     break;
             }
         }
     }
+
+    private float _discountLevel;
+
+    public float DiscountLevel
+    {
+        get { return _discountLevel; }
+        set { _discountLevel = value; }
+    }
+
+
+
 
 
     public PremiumUser(string username, string password, string discountName) : base(username, password)
@@ -49,6 +63,11 @@ public class PremiumUser : User
                 PremiumUser newUser = new PremiumUser(info[0], info[1], info[2]);
                 users.Add(newUser);
             }
+            else
+            {
+                PremiumUser newUser = new PremiumUser(info[0], info[1], DiscountName="zero");
+                users.Add(newUser);
+            }
         }
 
         foreach (PremiumUser u in users)
@@ -57,8 +76,6 @@ public class PremiumUser : User
             {
                 LoggedIn = true;
                 DiscountName = u.DiscountName;
-                Console.WriteLine($"premium user level: {DiscountName}");
-                Console.ReadKey();
             }
         }
     }
@@ -66,12 +83,12 @@ public class PremiumUser : User
     public override string ToString()
     {
         // This ToString method further overrides the other one, adding in info about discountlevel
-        return $"################" +
+        return $"#############################################################\n" +
                $"Här är din info:\n" +
                $"Ditt användarnamn är {Username}\n" +
                $"Ditt lösenord är {Password}\n" +
-               $"Du är {DiscountName}-kund och får därför {DiscountLevel * 100}% rabatt på alla priser!\n" +
+               $"Du är {DiscountName}-kund och får därför {Math.Round(DiscountLevel * 100)}% rabatt på alla priser!\n" +
                $"Gå till Kundvagn för att se kundvagn\n" +
-               $"################";
+               $"#############################################################";
     }
 }
