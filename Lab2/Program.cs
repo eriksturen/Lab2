@@ -12,10 +12,13 @@
 
             while (user.LoggedIn != true)
             {
+                Console.ReadKey();
+                // Username and password is set using login. So if PremiumUser this should be possible to show 
                 user.Login();
-                if (user.LoggedIn == true)
+                if (user.LoggedIn)
                 {
                     Console.WriteLine("Du är inloggad! Tryck valfri tangent för att börja handla.");
+                    Console.WriteLine($"username should be here {user.Username}");
                     Console.ReadKey();
                     Shop shop = new Shop(user);
                     shop.Start();

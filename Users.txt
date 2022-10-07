@@ -1,4 +1,3 @@
-Knatte; 123
+Knatte; 123; Gold
 Fnatte; 321
 Tjatte; 213
-Kuken; 123

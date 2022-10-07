@@ -44,10 +44,17 @@ public class DataHandler
         foreach (string line in lines)
         {
             string[] info = line.Split("; ");
-            User newUser = new User(info[0], info[1]);
-            users.Add(newUser);
+            if (info.Length > 2)
+            {
+                PremiumUser user = new PremiumUser(info[0], info[1], info[2]);
+                users.Add(user);
+            }
+            else
+            {
+                User newUser = new User(info[0], info[1]);
+                users.Add(newUser);
+            }
         }
-
         return users;
     }
 
