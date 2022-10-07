@@ -13,13 +13,13 @@ public class PremiumUser : User
             switch (DiscountName)
             {
                 case "Gold":
-                    _discountLevel = 0.15f;
+                    _discountLevel = 0.85f;
                     break;
                 case "Silver":
-                    _discountLevel = 0.10f;
+                    _discountLevel = 0.90f;
                     break;
                 case "Bronze":
-                    _discountLevel = 0.05f;
+                    _discountLevel = 0.95f;
                     break;
                 default:
                     _discountLevel = 0f;
@@ -87,7 +87,7 @@ public class PremiumUser : User
                $"Här är din info:\n" +
                $"Ditt användarnamn är {Username}\n" +
                $"Ditt lösenord är {Password}\n" +
-               $"Du är {DiscountName}-kund och får därför {Math.Round(DiscountLevel * 100)}% rabatt på alla priser!\n" +
+               $"Du är {DiscountName}-kund och får därför {Math.Round((1-DiscountLevel) * 100)}% rabatt på alla priser!\n" +
                $"Gå till Kundvagn för att se kundvagn\n" +
                $"#############################################################";
     }

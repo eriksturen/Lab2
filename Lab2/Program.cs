@@ -46,7 +46,6 @@ namespace Lab2
                         if (user.DiscountName == "zero")
                         {
                             LoggedIn = true;
-                            Console.WriteLine("Normal user");
                             Console.WriteLine("Du är inloggad! Tryck valfri tangent för att börja handla.");
                             Console.ReadKey();
                             User newUser = new User(user.Username, user.Password);
@@ -73,6 +72,8 @@ namespace Lab2
                 {
                     User user = new User();
                     user.RegisterUser();
+                    string[] newArgs = { };
+                    Main(newArgs);
                 }
             }
         }

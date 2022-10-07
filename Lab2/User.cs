@@ -2,7 +2,7 @@
 
 public class User
 {
-    // TODO 14 DiscountLevel implementation - apperently this needs to be as inheritance from the User-class
+    
     // so read/write functions and everything needs to be updated.
     // The datafile for Users also needs to contain info on the discount level
 
@@ -55,8 +55,7 @@ public class User
     // Register new User
     public void RegisterUser()
     {
-        User user = new User();
-        DataHandler.WriteNewUser(user);
+        DataHandler.WriteNewUser(this);
         Console.WriteLine("Användare registrerad. Nu kan du logga in!");
         Console.ReadKey();
         Login();

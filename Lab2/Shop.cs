@@ -10,17 +10,12 @@ namespace Lab2
 {
     public class Shop
     {
-        
-
+        // TODO 14 DiscountLevel implementation - halfway there. Now needs to update prices in shop 
         public User? User { get; set; }
         public PremiumUser? PremiumUser { get; set;  }
 
         CartClass cart = new CartClass();
-
-        public Shop()
-        {
-        }
-
+        
         public Shop(User user)
         {
             User = user;
@@ -107,6 +102,13 @@ namespace Lab2
                     break;
                 default:
                     List<Product> products = DataHandler.GetProducts(category);
+                    if (PremiumUser != null)
+                    {
+                        foreach (Product product in products)
+                        {
+                            product.Price = (int)(product.Price * PremiumUser.DiscountLevel);
+                        }
+                    }
                     Menu newMenu = new Menu(Program.prompt, products);
                     int selectedIndex = newMenu.Run();
                     if (selectedIndex < products.Count - 1)
