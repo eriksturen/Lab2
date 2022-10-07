@@ -26,7 +26,7 @@ public class PremiumUser : User
     }
 
 
-    public PremiumUser(string username, string password, string discountName)
+    public PremiumUser(string username, string password, string discountName) : base(username, password)
     {
         Username = username;
         Password = password;
@@ -56,7 +56,8 @@ public class PremiumUser : User
             if (u.Username == Username && u.Password == Password)
             {
                 LoggedIn = true;
-                Console.WriteLine("premium user");
+                DiscountName = u.DiscountName;
+                Console.WriteLine($"premium user level: {DiscountName}");
                 Console.ReadKey();
             }
         }
