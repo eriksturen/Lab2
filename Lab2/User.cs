@@ -10,60 +10,57 @@ public class User
     public string Username { get; set; }
     public string Password { get; set; }
 
-    private string prompt = new Shop().prompt;
+    private string prompt = Program.prompt;
 
     public bool LoggedIn { get; set; }
 
+
     public User()
     {
-    }
+        Console.WriteLine("Skriv in användarnamn: ");
+        string username = Console.ReadLine();
+        Console.WriteLine("Skriv in lösenord: ");
+        string password = Console.ReadLine();
 
-    public User(string userName, string password)
-    {
-        Username = userName;
+        Username = username;
         Password = password;
     }
 
-
-    public void Login()
+    public User(string username, string password)
     {
-        List<string> options = new List<string>() { "Logga in", "Registrera ny användare" };
-        Menu loginMenu = new Menu(prompt, options);
-        int selectedIndex = loginMenu.Run();
-        if (selectedIndex == 0)
+        Username = username;
+        Password = password;
+    }
+
+    public virtual void Login()
+    {
+        string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
+        List<User> users = new List<User>();
+        foreach (string line in lines)
         {
-            // TODO 8 make welcome statements a little prettier?
-            Console.WriteLine("Välkommen skriv in användarnamn: ");
-            string inputUsername = Console.ReadLine();
-            Username = inputUsername;
-            Console.WriteLine("Skriv in lösenord: ");
-            string inputPassword = Console.ReadLine();
-            Password = inputPassword;
-            User newUser = new User(inputUsername, inputPassword);
-            List<User> users = DataHandler.GetUsers();
-            foreach (User user in users)
+            string[] info = line.Split("; ");
+            if (info.Length < 3)
             {
-                if (user.Username == inputUsername && user.Password == inputPassword)
-                {
-                    LoggedIn = true;
-                }
+                User newUser = new User(info[0], info[1]);
+                users.Add(newUser);
             }
         }
-        else if (selectedIndex == 1)
+        
+        foreach (User u in users)
         {
-            RegisterUser();
+            if (u.Username == Username && u.Password == Password)
+            {
+                LoggedIn = true;
+                Console.WriteLine("normal user");
+                Console.ReadKey();
+            }
         }
     }
 
     // Register new User
     public void RegisterUser()
     {
-        Console.WriteLine("Välkommen skriv in önskat användarnamn: ");
-        string userName = Console.ReadLine();
-        Console.WriteLine("Skriv in önskat lösenord: ");
-        string password = Console.ReadLine();
-
-        User user = new User(userName, password);
+        User user = new User();
         DataHandler.WriteNewUser(user);
         Console.WriteLine("Användare registrerad. Nu kan du logga in!");
         Console.ReadKey();

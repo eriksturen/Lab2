@@ -10,17 +10,7 @@ namespace Lab2
 {
     public class Shop
     {
-        public string prompt = @"
-    ██╗  ██╗██╗   ██╗███╗   ██╗██████╗ ███████╗██████╗  ██████╗ ██████╗ ████████╗       ██╗        ██████╗ ██████╗ 
-    ██║  ██║██║   ██║████╗  ██║██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝       ██║       ██╔════╝██╔═══██╗
-    ███████║██║   ██║██╔██╗ ██║██║  ██║███████╗██████╔╝██║   ██║██████╔╝   ██║       ████████╗    ██║     ██║   ██║
-    ██╔══██║██║   ██║██║╚██╗██║██║  ██║╚════██║██╔═══╝ ██║   ██║██╔══██╗   ██║       ██╔═██╔═╝    ██║     ██║   ██║
-    ██║  ██║╚██████╔╝██║ ╚████║██████╔╝███████║██║     ╚██████╔╝██║  ██║   ██║       ██████║      ╚██████╗╚██████╔╝
-    ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝       ╚═════╝       ╚═════╝ ╚═════╝ 
-                                                                                                                   
-    Välkommen till Hundsport & Co!
-    (Välj alternativ nedan med hjälp av piltangenterna och enter.)
-    ";
+        
 
         public User User { get; set; }
 
@@ -51,7 +41,7 @@ namespace Lab2
                 "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Användarinfo", "Logga ut",
                 "Avsluta"
             };
-            Menu mainMenu = new Menu(prompt, baseOptions);
+            Menu mainMenu = new Menu(Program.prompt, baseOptions);
             // tutorial makes this be saved as a variable. It is right now not strictly needed
             int selectedIndex = mainMenu.Run();
 
@@ -104,7 +94,7 @@ namespace Lab2
                     break;
                 default:
                     List<Product> products = DataHandler.GetProducts(category);
-                    Menu newMenu = new Menu(prompt, products);
+                    Menu newMenu = new Menu(Program.prompt, products);
                     int selectedIndex = newMenu.Run();
                     if (selectedIndex < products.Count - 1)
                     {
@@ -125,7 +115,7 @@ namespace Lab2
         // remove products and see total price 
         private void Cart()
         {
-            string cartPrompt = $"{prompt} \n" +
+            string cartPrompt = $"{Program.prompt} \n" +
                                 $"--------------------------------------------------------\n" +
                                 $" Total kostnad för alla varor i korgen: {cart.TotalPrice} kr \n" +
                                 $" Ta bort en vara genom att markera den och trycka enter \n" +

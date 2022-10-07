@@ -25,9 +25,41 @@ public class PremiumUser : User
         }
     }
 
-    public PremiumUser(string userName, string password, string discountName) : base(userName, password)
+
+    public PremiumUser(string username, string password, string discountName)
     {
+        Username = username;
+        Password = password;
         DiscountName = discountName;
+    }
+
+    public PremiumUser()
+    {
+    }
+
+    public override void Login()
+    {
+        string[] lines = File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
+        List<PremiumUser> users = new List<PremiumUser>();
+        foreach (string line in lines)
+        {
+            string[] info = line.Split("; ");
+            if (info.Length > 2)
+            {
+                PremiumUser newUser = new PremiumUser(info[0], info[1], info[2]);
+                users.Add(newUser);
+            }
+        }
+
+        foreach (PremiumUser u in users)
+        {
+            if (u.Username == Username && u.Password == Password)
+            {
+                LoggedIn = true;
+                Console.WriteLine("premium user");
+                Console.ReadKey();
+            }
+        }
     }
 
     public override string ToString()
