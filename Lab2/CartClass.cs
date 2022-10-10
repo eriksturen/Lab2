@@ -83,6 +83,11 @@ public class CartClass
         }
     }
 
+    public void EmptyCart()
+    {
+        CartProducts.Clear();
+    }
+
     public List<Product> GetCart()
     {
         // The LINQ here makes sure that "Tillbaka" is always last.

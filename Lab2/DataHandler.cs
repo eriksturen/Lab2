@@ -18,7 +18,7 @@ public class DataHandler
     public static List<Product> GetProducts(string category)
     {
         List<Product> products = new List<Product>();
-        string[] lines = File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Products.txt");
+        string[] lines = File.ReadAllLines($"{Environment.CurrentDirectory}/Products.txt");
 
         foreach (string line in lines)
         {
@@ -34,34 +34,10 @@ public class DataHandler
         return products;
     }
 
-    // GetUser function should look through database of users and if found return it 
-    public static List<User> GetUsers()
-    {
-        // i föreläsningen används streamreader - streamwriter. Den öppnar en fil och skriver/läser 
-        // löpande. Verkar funka ungefär som with file as f open i python - måste ha Close() på slutet 
-        string[] lines = System.IO.File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
-        List<User> users = new List<User>();
-        foreach (string line in lines)
-        {
-            string[] info = line.Split("; ");
-            if (info.Length > 2)
-            {
-                PremiumUser user = new PremiumUser(info[0], info[1], info[2]);
-                users.Add(user);
-            }
-            else
-            {
-                User newUser = new User(info[0], info[1]);
-                users.Add(newUser);
-            }
-        }
-        return users;
-    }
-
     public static void WriteNewUser(User user)
     {
         string line = $"{user.Username}; {user.Password}";
-        File.AppendAllText(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt",
+        File.AppendAllText($"{Environment.CurrentDirectory}/Users.txt",
             line + Environment.NewLine);
     }
 }

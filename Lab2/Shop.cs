@@ -10,11 +10,10 @@ namespace Lab2
 {
     public class Shop
     {
-        // TODO 14 DiscountLevel implementation - halfway there. Now needs to update prices in shop 
         public User? User { get; set; }
         public PremiumUser? PremiumUser { get; set;  }
 
-        CartClass cart = new CartClass();
+        CartClass cart = new();
         
         public Shop(User user)
         {
@@ -76,6 +75,7 @@ namespace Lab2
                     Cart();
                     break;
                 case "Kassa":
+                    Cashier();
                     break;
                 case "Användarinfo":
                     if (PremiumUser != null)
@@ -156,6 +156,40 @@ namespace Lab2
             }
         }
 
-        // TODO 3 Fix Register where PayProducts() possible 
+        private void Cashier()
+        {
+            string cashierPrompt = $"{Program.prompt} \n" +
+                                $"--------------------------------------------------------\n" +
+                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice} kr \n" +
+                                $" Välj betala eller gå tillbaka för att handla mer. \n" +
+                                $"--------------------------------------------------------\n";
+            List<string> options = new List<string>()
+            {
+                "Betala", "Tillbaka", "Avsluta"
+            };
+            Menu cashierMenu = new Menu(cashierPrompt, options);
+            int selectedIndex = cashierMenu.Run();
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    cart.EmptyCart();
+                    Console.WriteLine();
+                    Console.WriteLine("Tack för ditt köp. Din varukorg är nu tom. \n" +
+                                      "Dina varor skickas inom 2-5 arbetsdagar. Tack för att du handlar hos oss! \n"+
+                        "Du kommer nu att loggas ut. Logga in igen för att handla mer.");
+                    Console.ReadKey();
+                    string[] args = { };
+                    Program.Main(args);
+                    break;
+                case 1:
+                    RunMainMenu();
+                    break;
+                case 2:
+                    Exit();
+                    break;
+
+            }
+        }
     }
 }

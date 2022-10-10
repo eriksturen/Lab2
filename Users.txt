@@ -1,3 +1,0 @@
-Knatte; 123; Gold
-Fnatte; 321
-Tjatte; 213

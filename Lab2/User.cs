@@ -10,8 +10,6 @@ public class User
     public string Username { get; set; }
     public string Password { get; set; }
 
-    private string prompt = Program.prompt;
-
     public bool LoggedIn { get; set; }
 
 
@@ -34,7 +32,7 @@ public class User
 
     public virtual void Login()
     {
-        string[] lines = File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
+        string[] lines = File.ReadAllLines($"{Environment.CurrentDirectory}/Users.txt");
         List<User> users = new List<User>();
         foreach (string line in lines)
         {

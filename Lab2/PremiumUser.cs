@@ -36,10 +36,6 @@ public class PremiumUser : User
         set { _discountLevel = value; }
     }
 
-
-
-
-
     public PremiumUser(string username, string password, string discountName) : base(username, password)
     {
         Username = username;
@@ -53,7 +49,7 @@ public class PremiumUser : User
 
     public override void Login()
     {
-        string[] lines = File.ReadAllLines(@"C:\Users\eriks\Documents\Csharp\Lab2\Users.txt");
+        string[] lines = File.ReadAllLines($"{Environment.CurrentDirectory}/Users.txt");
         List<PremiumUser> users = new List<PremiumUser>();
         foreach (string line in lines)
         {
@@ -65,7 +61,7 @@ public class PremiumUser : User
             }
             else
             {
-                PremiumUser newUser = new PremiumUser(info[0], info[1], DiscountName="zero");
+                PremiumUser newUser = new PremiumUser(info[0], info[1], DiscountName = "zero");
                 users.Add(newUser);
             }
         }
@@ -87,7 +83,7 @@ public class PremiumUser : User
                $"Här är din info:\n" +
                $"Ditt användarnamn är {Username}\n" +
                $"Ditt lösenord är {Password}\n" +
-               $"Du är {DiscountName}-kund och får därför {Math.Round((1-DiscountLevel) * 100)}% rabatt på alla priser!\n" +
+               $"Du är {DiscountName}-kund och får därför {Math.Round((1 - DiscountLevel) * 100)}% rabatt på alla priser!\n" +
                $"Gå till Kundvagn för att se kundvagn\n" +
                $"#############################################################";
     }
