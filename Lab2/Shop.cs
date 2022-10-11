@@ -11,17 +11,46 @@ namespace Lab2
     public class Shop
     {
         public User? User { get; set; }
-        public PremiumUser? PremiumUser { get; set;  }
+        public PremiumUser? PremiumUser { get; set; }
 
-        CartClass cart = new();
-        
+        private string _currencyName;
+
+        public string CurrencyName
+        {
+            get { return _currencyName; }
+            set
+            {
+                _currencyName = value;
+                switch (CurrencyName)
+                {
+                    case "kr":
+                        CurrencyValue = 1;
+                        break;
+                    case "$":
+                        CurrencyValue = 0.12f;
+                        break;
+                    case "€":
+                        CurrencyValue = 0.10f;
+                        break;
+                }
+            }
+        }
+
+
+        public float CurrencyValue { get; set; }
+
+
+        CartClass cart = new CartClass();
+
         public Shop(User user)
         {
+            CurrencyName = "kr";
             User = user;
         }
 
         public Shop(PremiumUser user)
         {
+            CurrencyName = "kr";
             PremiumUser = user;
         }
 
@@ -37,7 +66,7 @@ namespace Lab2
         {
             List<string> baseOptions = new List<string>()
             {
-                "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Användarinfo", "Logga ut",
+                "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Användarinfo", "Valuta", "Logga ut",
                 "Avsluta"
             };
             Menu mainMenu = new Menu(Program.prompt, baseOptions);
@@ -90,6 +119,9 @@ namespace Lab2
                     }
                     RunMainMenu();
                     break;
+                case "Valuta":
+                    Valuta();
+                    break;
                 case "Logga ut":
                     // TODO 11 Now cycles back to Main() - dunno if this is ok but works as intended?
                     Console.WriteLine("Du är utloggad. Tryck valfri tangent för att fortsätta.");
@@ -109,7 +141,7 @@ namespace Lab2
                             product.Price = (int)(product.Price * PremiumUser.DiscountLevel);
                         }
                     }
-                    Menu newMenu = new Menu(Program.prompt, products);
+                    Menu newMenu = new Menu(Program.prompt, products, CurrencyName, CurrencyValue);
                     int selectedIndex = newMenu.Run();
                     if (selectedIndex < products.Count - 1)
                     {
@@ -132,11 +164,11 @@ namespace Lab2
         {
             string cartPrompt = $"{Program.prompt} \n" +
                                 $"--------------------------------------------------------\n" +
-                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice} kr \n" +
+                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice*CurrencyValue} {CurrencyName} \n" +
                                 $" Ta bort en vara genom att markera den och trycka enter \n" +
                                 $"--------------------------------------------------------\n";
             List<Product> cartProducts = cart.GetCart();
-            Menu cartMenu = new Menu(cartPrompt, cartProducts);
+            Menu cartMenu = new Menu(cartPrompt, cartProducts, CurrencyName, CurrencyValue);
             int selectedIndex = cartMenu.Run();
             if (cartProducts.Count > 1)
             {
@@ -160,7 +192,7 @@ namespace Lab2
         {
             string cashierPrompt = $"{Program.prompt} \n" +
                                 $"--------------------------------------------------------\n" +
-                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice} kr \n" +
+                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice*CurrencyValue} {CurrencyName} \n" +
                                 $" Välj betala eller gå tillbaka för att handla mer. \n" +
                                 $"--------------------------------------------------------\n";
             List<string> options = new List<string>()
@@ -176,7 +208,7 @@ namespace Lab2
                     cart.EmptyCart();
                     Console.WriteLine();
                     Console.WriteLine("Tack för ditt köp. Din varukorg är nu tom. \n" +
-                                      "Dina varor skickas inom 2-5 arbetsdagar. Tack för att du handlar hos oss! \n"+
+                                      "Dina varor skickas inom 2-5 arbetsdagar. Tack för att du handlar hos oss! \n" +
                         "Du kommer nu att loggas ut. Logga in igen för att handla mer.");
                     Console.ReadKey();
                     string[] args = { };
@@ -189,6 +221,46 @@ namespace Lab2
                     Exit();
                     break;
 
+            }
+        }
+
+        private void Valuta()
+        {
+            string valutaPrompt = $"{Program.prompt} \n" +
+                                   $"--------------------------------------------------------\n" +
+                                   $" Här kan du ändra vilken valuta priserna visas i. \n" +
+                                   $" Välj en valuta nedan genom att markera och trycka enter. \n" +
+                                   $"--------------------------------------------------------\n";
+            List<string> options = new List<string>()
+            {
+                "Kronor", "USDollar", "Euro", "Tillbaka"
+            };
+            Menu valutaMenu = new Menu(valutaPrompt, options);
+            int selectedIndex = valutaMenu.Run();
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    Console.WriteLine("Valuta är nu kronor.");
+                    CurrencyName = "kr";
+                    Console.ReadKey();
+                    Valuta();
+                    break;
+                case 1:
+                    Console.WriteLine("Valuta är nu USDollar.");
+                    CurrencyName = "$";
+                    Console.ReadKey();
+                    Valuta();
+                    break;
+                case 2:
+                    Console.WriteLine("Valuta är nu Euro.");
+                    CurrencyName = "€";
+                    Console.ReadKey();
+                    Valuta();
+                    break;
+                case 3:
+                    RunMainMenu();
+                    break;
             }
         }
     }

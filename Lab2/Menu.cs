@@ -14,16 +14,22 @@ namespace Lab2
         public string Prompt { get; set; }
         public int Count { get; set; }
 
+        public string CurrencyName { get; set; }
+
+        public float CurrencyValue { get; set; }
+
 
         // at this point I should probably create an override
         // that can create menus with other options than products
         // it gets a bit convoluted storing "back" options and so on in the product data file... 
-        public Menu(string prompt, List<Product> options)
+        public Menu(string prompt, List<Product> options, string currencyName, float currencyValue)
         {
             Prompt = prompt;
             Options = options;
             SelectedIndex = 0;
             Count = options.Count;
+            CurrencyName = currencyName;
+            CurrencyValue = currencyValue;
         }
 
         public Menu(string prompt, List<string> options)
@@ -42,15 +48,15 @@ namespace Lab2
         private void DisplayOptions()
         {
             string CurrentOption = "";
-            int price = 0;
-            int quantity = 0;
+            float price = 0;
+            float quantity = 0;
             Console.WriteLine(Prompt);
             for (int i = 0; i < Count; i++)
             {
                 if (Options != null)
                 {
                     CurrentOption = Options[i].Name;
-                    price = Options[i].Price;
+                    price = Options[i].Price*CurrencyValue;
                     quantity = Options[i].CartQuantity;
                 }
                 else if (stringOptions != null)
@@ -77,11 +83,11 @@ namespace Lab2
                 if (quantity > 0)
                 {
                     Console.WriteLine(
-                        $"{prefix}    {CurrentOption}; {quantity} st, á {price} kr. Total: {price * quantity} kr  ");
+                        $"{prefix}    {CurrentOption}; {quantity} st, á {price} {CurrencyName}. Total: {price * quantity} {CurrencyName}  ");
                 }
                 else if (price > 0)
                 {
-                    Console.WriteLine($"{prefix}    {CurrentOption}; {price} kr   ");
+                    Console.WriteLine($"{prefix}    {CurrentOption}; {price} {CurrencyName}   ");
                 }
                 else
                 {

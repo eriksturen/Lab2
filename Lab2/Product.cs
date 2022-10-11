@@ -15,14 +15,14 @@ public class Product
     public string ProductId { get; set; }
     public string? Name { get; set; }
     public Categories Category { get; set; }
-    public int Price { get; set; }
-    public int CartQuantity { get; set; }
+    public float Price { get; set; }
+    public float CartQuantity { get; set; }
 
     public Product(string productId, string name, string category, string price)
     {
         ProductId = productId;
         Name = name;
         Category = Enum.Parse<Categories>(category);
-        Price = int.Parse(price);
+        Price = float.Parse(price);
     }
 }
