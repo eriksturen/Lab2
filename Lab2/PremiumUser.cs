@@ -54,12 +54,12 @@ public class PremiumUser : User
         foreach (string line in lines)
         {
             string[] info = line.Split("; ");
-            if (info.Length > 2)
+            if (info.Length >= 3)
             {
                 PremiumUser newUser = new PremiumUser(info[0], info[1], info[2]);
                 users.Add(newUser);
             }
-            else
+            else if (info.Length > 0 && info.Length < 3)
             {
                 PremiumUser newUser = new PremiumUser(info[0], info[1], DiscountName = "zero");
                 users.Add(newUser);

@@ -10,8 +10,8 @@ namespace Lab2
 {
     public class Shop
     {
-        public User? User { get; }
-        public PremiumUser? PremiumUser { get; }
+        public User? User { get; set; }
+        public PremiumUser? PremiumUser { get; set; }
 
         // Currency name and value gets sent to Menu for calcs
         private string _currencyName;
