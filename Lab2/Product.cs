@@ -12,9 +12,9 @@ public class Product
     }
 
     // Product class. To populate lists for the menu class and so on 
-    public string ProductId { get; set; }
-    public string? Name { get; set; }
-    public Categories Category { get; set; }
+    public string ProductId { get; }
+    public string? Name { get; }
+    public Categories Category { get; }
     public float Price { get; set; }
     public float CartQuantity { get; set; }
 

@@ -56,7 +56,7 @@ namespace Lab2
                 if (Options != null)
                 {
                     CurrentOption = Options[i].Name;
-                    price = Options[i].Price*CurrencyValue;
+                    price = Options[i].Price * CurrencyValue;
                     quantity = Options[i].CartQuantity;
                 }
                 else if (stringOptions != null)

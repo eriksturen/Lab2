@@ -17,8 +17,6 @@ namespace Lab2
     (Välj alternativ nedan med hjälp av piltangenterna och enter.)
     ";
 
-
-        // TODO 12 Do you really need the string[] args in Main()? Seems to work both ways
         public static void Main(string[] args)
         {
             bool LoggedIn = false;
@@ -64,7 +62,7 @@ namespace Lab2
                                           "Försök igen eller registrera ny användare. \n" +
                                           "(Tryck valfri tangent för att komma vidare.)");
                         Console.ReadKey();
-                        string[] newArgs = {};
+                        string[] newArgs = { };
                         Main(newArgs);
                     }
                 }

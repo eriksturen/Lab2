@@ -10,9 +10,10 @@ namespace Lab2
 {
     public class Shop
     {
-        public User? User { get; set; }
-        public PremiumUser? PremiumUser { get; set; }
+        public User? User { get; }
+        public PremiumUser? PremiumUser { get; }
 
+        // Currency name and value gets sent to Menu for calcs
         private string _currencyName;
 
         public string CurrencyName
@@ -29,7 +30,7 @@ namespace Lab2
                     case "$":
                         CurrencyValue = 0.12f;
                         break;
-                    case "€":
+                    case "euro":
                         CurrencyValue = 0.10f;
                         break;
                 }
@@ -40,7 +41,7 @@ namespace Lab2
         public float CurrencyValue { get; set; }
 
 
-        CartClass cart = new CartClass();
+        CartClass cart = new();
 
         public Shop(User user)
         {
@@ -60,13 +61,12 @@ namespace Lab2
             RunMainMenu();
         }
 
-        // TODO 15 SETTINGS tab where currency can be changed 
-
         private void RunMainMenu()
         {
             List<string> baseOptions = new List<string>()
             {
-                "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Användarinfo", "Valuta", "Logga ut",
+                "Mat", "Leksaker", "Koppel, halsband och selar", "Kundvagn", "Kassa", "Användarinfo", "Valuta",
+                "Logga ut",
                 "Avsluta"
             };
             Menu mainMenu = new Menu(Program.prompt, baseOptions);
@@ -117,13 +117,13 @@ namespace Lab2
                         Console.WriteLine(User.ToString());
                         Console.ReadKey();
                     }
+
                     RunMainMenu();
                     break;
                 case "Valuta":
                     Valuta();
                     break;
                 case "Logga ut":
-                    // TODO 11 Now cycles back to Main() - dunno if this is ok but works as intended?
                     Console.WriteLine("Du är utloggad. Tryck valfri tangent för att fortsätta.");
                     Console.ReadKey();
                     string[] args = { };
@@ -141,6 +141,7 @@ namespace Lab2
                             product.Price = (int)(product.Price * PremiumUser.DiscountLevel);
                         }
                     }
+
                     Menu newMenu = new Menu(Program.prompt, products, CurrencyName, CurrencyValue);
                     int selectedIndex = newMenu.Run();
                     if (selectedIndex < products.Count - 1)
@@ -157,14 +158,14 @@ namespace Lab2
             }
         }
 
-        // TODO 4 Cart should be saved to UserClass() - available on Login
-        // cart menu is a bit different to the regular menu since the only real functions in it should be to see the cart
+        // cart menu is a bit different to the regular menu
+        // since the only real functions in it should be to see the cart
         // remove products and see total price 
         private void Cart()
         {
             string cartPrompt = $"{Program.prompt} \n" +
                                 $"--------------------------------------------------------\n" +
-                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice*CurrencyValue} {CurrencyName} \n" +
+                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice * CurrencyValue} {CurrencyName} \n" +
                                 $" Ta bort en vara genom att markera den och trycka enter \n" +
                                 $"--------------------------------------------------------\n";
             List<Product> cartProducts = cart.GetCart();
@@ -191,11 +192,11 @@ namespace Lab2
         private void Cashier()
         {
             string cashierPrompt = $"{Program.prompt} \n" +
-                                $"--------------------------------------------------------\n" +
-                                $" Total kostnad för alla varor i korgen: {cart.TotalPrice*CurrencyValue} {CurrencyName} \n" +
-                                $" Välj betala eller gå tillbaka för att handla mer. \n" +
-                                $"--------------------------------------------------------\n";
-            List<string> options = new List<string>()
+                                   $"--------------------------------------------------------\n" +
+                                   $" Total kostnad för alla varor i korgen: {cart.TotalPrice * CurrencyValue} {CurrencyName} \n" +
+                                   $" Välj betala eller gå tillbaka för att handla mer. \n" +
+                                   $"--------------------------------------------------------\n";
+            List<string> options = new List<string>
             {
                 "Betala", "Tillbaka", "Avsluta"
             };
@@ -209,7 +210,7 @@ namespace Lab2
                     Console.WriteLine();
                     Console.WriteLine("Tack för ditt köp. Din varukorg är nu tom. \n" +
                                       "Dina varor skickas inom 2-5 arbetsdagar. Tack för att du handlar hos oss! \n" +
-                        "Du kommer nu att loggas ut. Logga in igen för att handla mer.");
+                                      "Du kommer nu att loggas ut. Logga in igen för att handla mer.");
                     Console.ReadKey();
                     string[] args = { };
                     Program.Main(args);
@@ -220,18 +221,17 @@ namespace Lab2
                 case 2:
                     Exit();
                     break;
-
             }
         }
 
         private void Valuta()
         {
             string valutaPrompt = $"{Program.prompt} \n" +
-                                   $"--------------------------------------------------------\n" +
-                                   $" Här kan du ändra vilken valuta priserna visas i. \n" +
-                                   $" Välj en valuta nedan genom att markera och trycka enter. \n" +
-                                   $"--------------------------------------------------------\n";
-            List<string> options = new List<string>()
+                                  $"--------------------------------------------------------\n" +
+                                  $" Här kan du ändra vilken valuta priserna visas i. \n" +
+                                  $" Välj en valuta nedan genom att markera och trycka enter. \n" +
+                                  $"--------------------------------------------------------\n";
+            List<string> options = new List<string>
             {
                 "Kronor", "USDollar", "Euro", "Tillbaka"
             };
@@ -254,7 +254,7 @@ namespace Lab2
                     break;
                 case 2:
                     Console.WriteLine("Valuta är nu Euro.");
-                    CurrencyName = "€";
+                    CurrencyName = "euro";
                     Console.ReadKey();
                     Valuta();
                     break;

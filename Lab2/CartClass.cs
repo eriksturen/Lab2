@@ -6,7 +6,7 @@ namespace Lab2;
 
 public class CartClass
 {
-    public List<Product> CartProducts { get; set; }
+    public List<Product> CartProducts { get; }
     private float _totalPrice;
 
     public float TotalPrice
