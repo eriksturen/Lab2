@@ -1,5 +1,5 @@
 Knatte; 123; Gold
-Fnatte; 321
-Tjatte; 213
+Fnatte; 321; Silver
+Tjatte; 213; Bronze
 Benke; 123
-Benke; 123
+
