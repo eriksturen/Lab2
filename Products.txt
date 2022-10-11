@@ -1,0 +1,16 @@
+standardt; Standardt extra; Mat; 450
+royalCanin; Royal Canin; Mat; 350
+köttfärs; Köttfärs på tunna; Mat; 600
+kong; Röd kong; Leksaker; 69
+frisbee; Frisbee; Leksaker; 43
+herdingBall; Herding Ball; Leksaker; 299
+läderHalsband; Läderhalsband; Koppel; 149
+spårlina10Meter; Spårlina 10 meter; Koppel; 249
+nomeSele; Nome-sele; Koppel; 567
+spårsele20Meter; Spårsele 20 meter; Koppel; 299; 
+igpSele; IGP-sele; Koppel; 349
+lyftsele; Helikopterlyftsele; Koppel; 799
+märgben; Märgben; Mat; 200
+tillbaka; Tillbaka; Mat; 0
+tillbaka; Tillbaka; Leksaker; 0
+tillbaka; Tillbaka; Koppel; 0
